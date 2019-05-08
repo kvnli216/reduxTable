@@ -1,0 +1,18 @@
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.title {
+  flex-grow: 1;
+}
+
+.refreshButton {
+  flex-grow: 1;
+}
