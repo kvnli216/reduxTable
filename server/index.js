@@ -6,7 +6,7 @@ const faker = require('faker');
 
 app.use(morgan('dev'));
 
-app.use(express.static(path.join(__dirname, '../reduxtable/public')));
+app.use(express.static(path.join(__dirname, '../client/public')));
 
 app.get('/data', (req, res) => {
   const rndNum = faker.random.number({min: 10, max: 30});
@@ -30,11 +30,9 @@ app.get('/data', (req, res) => {
     output.push(tempRow);
   }
 
-  res.status(200).json(output)
+  res.status(200).send(output)
 });
 
-
-// 404
 app.use((req, res, next) => {
   res.status(404);
   res.send({ error: 'Not Found' });

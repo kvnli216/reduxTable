@@ -11,6 +11,7 @@
 
 .title {
   flex-grow: 1;
+  color: #6441a4;
 }
 
 .refreshButton {
