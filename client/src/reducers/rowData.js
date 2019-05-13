@@ -9,8 +9,10 @@ const defaultState = [{
 
 const rowData = (state = defaultState, action) => {
   switch (action.type) {
-    case 'GET_ROW_DATA':
+    case 'GET_SUCCESS':
       return action.payload;
+    case 'GET_FAILED':
+      return state; // need better error handling
     default:
       return state;
   }

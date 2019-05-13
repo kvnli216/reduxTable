@@ -6,7 +6,7 @@ import './App.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import getRowData from '../actions';
+import * as actions from '../actions';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +25,8 @@ class App extends React.Component {
 
     axios.get('/data')
       .then((rowData) => {
-        dispatch({ type: 'GET_ROW_DATA', payload: rowData.data });
+        // dispatch({ type: 'GET_ROW_DATA', payload: rowData.data });
+        dispatch({ type: 'ASYNC_GET_DATA', payload: rowData.data });
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
@@ -62,7 +63,8 @@ class App extends React.Component {
 
 // eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = dispatch => ({
-  getRowData: data => dispatch(getRowData(data)),
+  // getRowData: data => dispatch(actions.getRowData(data)),
+  getRowData: data => dispatch(actions.AsyncRowData(data)),
 });
 
 const mapStateToProps = state => ({
