@@ -1,25 +1,36 @@
 import React from 'react';
+import './about.css';
 
 const About = () => (
   <div className="about">
-    # reduxTable
-    Implementation of AgGrid data display for Twitch Account dummy data.
+    <h1>reduxTable</h1>
+    <h3>Implementation of AgGrid data display for Twitch Account dummy data.</h3>
+    <h2>Tech Stack</h2>
+    <p>
+      [Front-end]
+      <br />
+      Redux
+      <br />
+      Redux-saga
+      <br />
+      React-router-dom
+      <br />
+      ag-Grid
+    </p>
 
-    Tech Stack
-    ```
-    [Front-end]
-    Redux
-    Redux-saga
-    React-router-dom
-    ag-Grid
+    <p>
+      [Back-end]
+      <br />
+      node/express
+    </p>
 
-    [Back-end]
-    node/express
-
-    [other]
-    faker
-    axios
-    ```
+    <p>
+      [other]
+      <br />
+      faker
+      <br />
+      axios
+    </p>
   </div>
 );
 
