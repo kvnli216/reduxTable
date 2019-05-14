@@ -1,14 +1,14 @@
 import React from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import './App.css';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as actions from '../actions';
+import axios from 'axios';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import './home.css';
+// import * as actions from '../actions';
 
-class App extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
 
@@ -38,7 +38,7 @@ class App extends React.Component {
     const { columnDefs, rowData } = this.props;
 
     return (
-      <div className="app">
+      <div className="home">
         <div className="header">
           <h1 className="title">Twitch Accounts</h1>
           <button type="button" className="refreshButton" onClick={this.getData}>Refresh</button>
@@ -61,23 +61,24 @@ class App extends React.Component {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
-const mapDispatchToProps = dispatch => ({
-  // getRowData: data => dispatch(actions.getRowData(data)),
-  getRowData: data => dispatch(actions.AsyncRowData(data)),
-});
+// *** Replaced actions with redux-saga ***
+// // eslint-disable-next-line no-unused-vars
+// const mapDispatchToProps = dispatch => ({
+//   // getRowData: data => dispatch(actions.getRowData(data)),
+//   getRowData: data => dispatch(actions.AsyncRowData(data)),
+// });
 
 const mapStateToProps = state => ({
   columnDefs: state.columnDefs,
   rowData: state.rowData,
 });
 
-App.defaultProps = {
+Home.defaultProps = {
   columnDefs: PropTypes.array,
   rowData: PropTypes.array,
 };
 
-App.propTypes = {
+Home.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape(
     {
       headerName: PropTypes.string,
@@ -114,4 +115,4 @@ App.propTypes = {
   })),
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Home);

@@ -5,8 +5,9 @@ Tech Stack
 ```
 [Front-end]
 Redux
-Redux Saga
-AgGrid table
+Redux-saga
+React-router-dom
+ag-Grid
 
 [Back-end]
 node/express

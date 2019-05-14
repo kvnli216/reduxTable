@@ -1,6 +1,6 @@
 const defaultState = [{
-  username: 'test',
-  email: 'test',
+  username: 'DEFAULT',
+  email: 'DEFAULT',
   subscriptions: 0,
   follows: 0,
   friends: 0,
