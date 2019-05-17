@@ -7,10 +7,16 @@ const defaultState = [{
   prime: false,
 }];
 
+
 const rowData = (state = defaultState, action) => {
+  const { payload } = action;
   switch (action.type) {
+    case 'EDIT_CELL':
+      return {
+        rowData: payload,
+      };
     case 'GET_SUCCESS':
-      return action.payload;
+      return payload;
     case 'GET_FAILED':
       return state; // need better error handling
     default:

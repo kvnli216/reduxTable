@@ -1,10 +1,28 @@
 const defaultState = [
-  { headerName: 'Username', field: 'username' },
-  { headerName: 'Email', field: 'email' },
-  { headerName: 'Subscriptions', field: 'subscriptions' },
-  { headerName: 'Follows', field: 'follows' },
-  { headerName: 'Friends', field: 'friends' },
-  { headerName: 'Prime', field: 'prime' },
+  {
+    headerName: 'Username',
+    field: 'username',
+    editable: true,
+    cellEditor: 'cellEditor',
+    cellEditorParams: {
+
+    },
+    getQuickFilterText(params) {
+      return params.value.name;
+    },
+  },
+  {
+    headerName: 'Email',
+    field: 'email',
+    editable: true,
+    getQuickFilterText(params) {
+      return params.value.name;
+    },
+  },
+  { headerName: 'Subscriptions', field: 'subscriptions', editable: true },
+  { headerName: 'Follows', field: 'follows', editable: true },
+  { headerName: 'Friends', field: 'friends', editable: true },
+  { headerName: 'Prime', field: 'prime', editable: true },
 ];
 
 const columnDefs = (state = defaultState, action) => {

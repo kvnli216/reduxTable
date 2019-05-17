@@ -14,6 +14,16 @@ export function* AsyncGetData() {
   }
 }
 
+export function* AsyncEditCell(payload) {
+  yield put({ type: 'EDIT_CELL', payload }); // **CHECK** this line still works when commented out?
+}
+
 export function* watchAsyncGetData() {
-  yield takeEvery('ASYNC_GET_DATA', AsyncGetData);
+  yield takeEvery('WATCH_GET_DATA', AsyncGetData);
+}
+
+export function* watchEditCell(action) {
+  const { payload } = action;
+
+  yield takeEvery('WATCH_EDIT_CELL', AsyncEditCell(payload));
 }

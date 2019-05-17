@@ -8,13 +8,16 @@ Redux
 Redux-saga
 React-router-dom
 ag-Grid
+axios
 
 [Back-end]
 node/express
-
-[other]
 faker
-axios
+
+[Features]
+- quick filter 
+- edit-capable cells
+- exportable data
 ```
 
 

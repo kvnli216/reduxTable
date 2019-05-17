@@ -26,6 +26,7 @@ app.get('/data', (req, res) => {
       follows,
       friends,
       prime,
+      id: i,
     }
     output.push(tempRow);
   }
