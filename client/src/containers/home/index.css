@@ -17,3 +17,13 @@
 .refreshButton {
   flex-grow: 1;
 }
+
+.controller {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+.exportButton {
+  margin-left: 20px;
+}

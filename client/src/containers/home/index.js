@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import './home.css';
+import './index.css';
 import CellEditor from '../cellEditor';
+import Filter from '../../components/filter';
 
 class Home extends React.Component {
   constructor(props) {
@@ -14,12 +15,11 @@ class Home extends React.Component {
       frameworkComponents: {
         cellEditor: CellEditor,
       },
-      searchValue: '',
+      searchValue: undefined,
     };
 
     this.getData = this.getData.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
-    this.quickSearch = this.quickSearch.bind(this);
     this.cellValueChanged = this.cellValueChanged.bind(this);
   }
 
@@ -27,16 +27,20 @@ class Home extends React.Component {
     this.getData();
   }
 
-  onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-  }
-
   getData() {
     // eslint-disable-next-line react/prop-types
     const { dispatch } = this.props;
 
     dispatch({ type: 'WATCH_GET_DATA' });
+  }
+
+  updateSearch(e) {
+    // debugger;
+    const text = e.target.value;
+    this.setState(
+      { searchValue: text },
+    );
+    e.preventDefault();
   }
 
   cellValueChanged() {
@@ -47,23 +51,9 @@ class Home extends React.Component {
     dispatch({ type: 'WATCH_EDIT_CELL', payload: newState });
   }
 
-  updateSearch(e) {
-    e.preventDefault();
-    const text = e.target.value;
-    this.setState({
-      searchValue: text,
-    });
-  }
-
-  quickSearch() {
-    const { searchValue } = this.state;
-    // this.props.api.setQuickFilter(searchValue);
-  }
-
-
   render() {
     const { columnDefs, rowData } = this.props;
-    const { frameworkComponents } = this.state;
+    const { frameworkComponents, searchValue } = this.state;
 
     return (
       <div className="home">
@@ -71,10 +61,10 @@ class Home extends React.Component {
           <h1 className="title">Twitch Accounts</h1>
           <button type="button" className="refreshButton" onClick={this.getData}>Refresh</button>
         </div>
-        <label htmlFor="filter">
-          Global Filter
-          <input id="filter" type="text" onKeyUp={this.quickSearch} onChange={this.updateSearch} />
-        </label>
+        <div className="controller">
+          <Filter updateSearch={this.updateSearch} searchValue={searchValue} />
+          <button type="button" className="exportButton">Export to csv</button>
+        </div>
         <div
           className="ag-theme-balham"
           style={{
@@ -87,12 +77,8 @@ class Home extends React.Component {
             rowData={rowData}
             animateRows
             enableFilter
-            // enable delta updates
-            deltaRowDataMode
-            // return id required for tree data and delta updates
-            getRowNodeId={data => data.id}
+            quickFilterText={searchValue}
             frameworkComponents={frameworkComponents}
-            onGridReady={this.onGridReady}
             onCellValueChanged={this.cellValueChanged}
           />
         </div>
