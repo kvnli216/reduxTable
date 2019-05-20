@@ -7,6 +7,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import './index.css';
 import CellEditor from '../cellEditor';
 import Filter from '../../components/filter';
+import Export from '../../components/export';
 
 class Home extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Home extends React.Component {
     this.state = {
       frameworkComponents: {
         cellEditor: CellEditor,
+        exportButton: Export,
       },
       searchValue: undefined,
     };
@@ -21,10 +23,15 @@ class Home extends React.Component {
     this.getData = this.getData.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.cellValueChanged = this.cellValueChanged.bind(this);
+    this.exportCsv = this.exportCsv.bind(this);
   }
 
   componentDidMount() {
     this.getData();
+  }
+
+  onGridReady = (params) => {
+    this.api = params.api;
   }
 
   getData() {
@@ -34,8 +41,11 @@ class Home extends React.Component {
     dispatch({ type: 'WATCH_GET_DATA' });
   }
 
+  exportCsv() {
+    this.api.exportDataAsCsv();
+  }
+
   updateSearch(e) {
-    // debugger;
     const text = e.target.value;
     this.setState(
       { searchValue: text },
@@ -63,7 +73,7 @@ class Home extends React.Component {
         </div>
         <div className="controller">
           <Filter updateSearch={this.updateSearch} searchValue={searchValue} />
-          <button type="button" className="exportButton">Export to csv</button>
+          <Export exportCsv={this.exportCsv} />
         </div>
         <div
           className="ag-theme-balham"
@@ -75,11 +85,13 @@ class Home extends React.Component {
           <AgGridReact
             columnDefs={columnDefs}
             rowData={rowData}
+            onGridReady={this.onGridReady}
             animateRows
             enableFilter
             quickFilterText={searchValue}
             frameworkComponents={frameworkComponents}
             onCellValueChanged={this.cellValueChanged}
+            exportDataAsCsv={this.exportToCsv}
           />
         </div>
       </div>
