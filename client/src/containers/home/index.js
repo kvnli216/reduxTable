@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import './index.css';
+import Typography from '@material-ui/core/Typography';
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CellEditor from '../cellEditor';
 import Filter from '../../components/filter';
@@ -68,13 +71,17 @@ class Home extends React.Component {
 
     return (
       <div className="home">
-        <div className="header">
-          <h1 className="title">Twitch Accounts</h1>
-          <Button type="button" variant="contained" color="primary" className="refreshButton" onClick={this.getData}>Refresh</Button>
-        </div>
         <div className="controller">
-          <Filter updateSearch={this.updateSearch} searchValue={searchValue} />
-          <Export exportCsv={this.exportCsv} />
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" color="inherit" noWrap>
+                Twitch Users
+              </Typography>
+              <Filter updateSearch={this.updateSearch} searchValue={searchValue} />
+              <Button type="button" variant="contained" color="primary" className="refreshButton" onClick={this.getData}>Refresh</Button>
+              <Export exportCsv={this.exportCsv} />
+            </Toolbar>
+          </AppBar>
         </div>
         <div
           className="ag-theme-balham"

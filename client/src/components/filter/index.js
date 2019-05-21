@@ -10,9 +10,6 @@ const styles = theme => ({
   root: {
     width: '100%',
   },
-  // grow: {
-  //   flexGrow: 1,
-  // },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -76,13 +73,6 @@ const Filter = (props) => {
         />
       </div>
     </div>
-
-  // <form className="filterForm">
-  // <label htmlFor="filter">
-  //     Global Filter:
-  //     <input id="filter" type="text" onChange={updateSearch} defaultValue={searchValue} />
-  //   </label>
-  // </form>
   );
 };
 
