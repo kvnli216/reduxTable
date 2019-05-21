@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import './index.css';
+import Button from '@material-ui/core/Button';
 import CellEditor from '../cellEditor';
 import Filter from '../../components/filter';
 import Export from '../../components/export';
@@ -69,7 +70,7 @@ class Home extends React.Component {
       <div className="home">
         <div className="header">
           <h1 className="title">Twitch Accounts</h1>
-          <button type="button" className="refreshButton" onClick={this.getData}>Refresh</button>
+          <Button type="button" variant="contained" color="primary" className="refreshButton" onClick={this.getData}>Refresh</Button>
         </div>
         <div className="controller">
           <Filter updateSearch={this.updateSearch} searchValue={searchValue} />
@@ -87,7 +88,6 @@ class Home extends React.Component {
             rowData={rowData}
             onGridReady={this.onGridReady}
             animateRows
-            enableFilter
             quickFilterText={searchValue}
             frameworkComponents={frameworkComponents}
             onCellValueChanged={this.cellValueChanged}
