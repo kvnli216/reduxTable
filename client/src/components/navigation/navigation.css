@@ -1,8 +1,3 @@
-.navigation {
-  max-width: 110px;
-  height: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-right: 10px;
-  background-color: rgb(201, 201, 201);
+.nav-title {
+  text-align: center;
 }
