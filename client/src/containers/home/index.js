@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { connect } from 'react-redux';
@@ -10,6 +11,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CellEditor from '../cellEditor';
+import AvatarCellRenderer from '../../components/avatarCellRenderer';
+import AvatarModal from '../../components/avatarModal';
 import Filter from '../../components/filter';
 import Export from '../../components/export';
 
@@ -17,9 +20,17 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      context: { componentParent: this },
       frameworkComponents: {
         cellEditor: CellEditor,
-        exportButton: Export,
+        avatarCellRenderer: AvatarCellRenderer,
+        avatarModal: AvatarModal,
+      },
+      loadingOverlayComponent: 'avatarModal',
+      loadingOverlayComponentParams: {
+        username: null,
+        subscriptions: null,
+        prime: null,
       },
       searchValue: undefined,
     };
@@ -27,6 +38,7 @@ class Home extends React.Component {
     this.getData = this.getData.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.cellValueChanged = this.cellValueChanged.bind(this);
+    this.rowClicked = this.rowClicked.bind(this);
     this.exportCsv = this.exportCsv.bind(this);
   }
 
@@ -36,6 +48,7 @@ class Home extends React.Component {
 
   onGridReady = (params) => {
     this.api = params.api;
+    this.api.sizeColumnsToFit();
   }
 
   getData() {
@@ -57,6 +70,7 @@ class Home extends React.Component {
     e.preventDefault();
   }
 
+
   cellValueChanged() {
     // eslint-disable-next-line react/prop-types
     const { rowData, dispatch } = this.props;
@@ -65,9 +79,40 @@ class Home extends React.Component {
     dispatch({ type: 'WATCH_EDIT_CELL', payload: newState });
   }
 
+  rowClicked(e) {
+    const { outerHTML } = e.event.target;
+    const colsArr = ['username', 'email', 'subscription', 'follows', 'friends', 'prime', 'input'];
+    const contains = (target, arr) => {
+      let value = 0;
+      arr.forEach((word) => {
+        value += target.includes(word);
+      });
+      return (value === 0);
+    };
+
+    if (contains(outerHTML, colsArr)) {
+      const { username, subscriptions, prime } = e.data;
+      this.setState({
+        loadingOverlayComponentParams: {
+          username,
+          subscriptions,
+          prime,
+        },
+      }, () => {
+        this.api.showLoadingOverlay();
+      });
+    }
+  }
+
   render() {
     const { columnDefs, rowData } = this.props;
-    const { frameworkComponents, searchValue } = this.state;
+    const {
+      context,
+      frameworkComponents,
+      loadingOverlayComponent,
+      loadingOverlayComponentParams,
+      searchValue,
+    } = this.state;
 
     return (
       <div className="home">
@@ -96,9 +141,13 @@ class Home extends React.Component {
             onGridReady={this.onGridReady}
             animateRows
             quickFilterText={searchValue}
+            context={context}
             frameworkComponents={frameworkComponents}
+            loadingOverlayComponent={loadingOverlayComponent}
+            loadingOverlayComponentParams={loadingOverlayComponentParams}
             onCellValueChanged={this.cellValueChanged}
             exportDataAsCsv={this.exportToCsv}
+            onRowClicked={this.rowClicked}
           />
         </div>
       </div>

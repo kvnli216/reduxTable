@@ -1,5 +1,12 @@
 const defaultState = [
   {
+    headerName: 'Avatar',
+    field: 'avatar',
+    editable: false,
+    cellRenderer: 'avatarCellRenderer',
+    autoHeight: true,
+  },
+  {
     headerName: 'Username',
     field: 'username',
     editable: true,

@@ -1,4 +1,5 @@
 const defaultState = [{
+  avatar: 'https://raw.githubusercontent.com/ag-grid/ag-grid/master/packages/ag-grid-docs/src/images/smiley.png',
   username: 'DEFAULT',
   email: 'DEFAULT',
   subscriptions: 0,
