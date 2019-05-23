@@ -13,6 +13,7 @@ app.get('/data', (req, res) => {
   let output = [];
 
   for (let i = 0; i < rndNum; i++) {
+    let avatar = faker.image.avatar();
     let username = faker.internet.userName();
     let email = faker.internet.email();
     let subscriptions = faker.random.number({min: 1, max: 30});
@@ -20,6 +21,7 @@ app.get('/data', (req, res) => {
     let friends = faker.random.number({min: 1, max: 50});
     let prime = faker.random.boolean();
     let tempRow = {
+      avatar,
       username,
       email,
       subscriptions,
